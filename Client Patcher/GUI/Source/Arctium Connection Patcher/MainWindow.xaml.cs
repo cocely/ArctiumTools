@@ -85,42 +85,33 @@ namespace Arctium_Connection_Patcher
 
             if (Patcher.Patcher.Initialized)
             {
-                NoteText.Content = "Click on Arctium logo to start the patching process :)";
-                NoteText.Visibility = Visibility.Visible;
-            }
-        }
+                    NoteText.Content = "Patching in progress...";
+                    if (Patcher.Patcher.Is64Bit)
+                    {
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement, Patcher.Bytes.Movement, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement2, Patcher.Bytes.Movement, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement3, Patcher.Bytes.Movement, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement4, Patcher.Bytes.Movement, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x64.Legacy, Patcher.Bytes.Legacy, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x64.Email, Patcher.Bytes.Email, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x64.User, Patcher.Bytes.User, ref StateBox);
+                        MessageBox.Show("Patched 64bit client, shutting down application");
+                    }
+                    else
+                    {
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement, Patcher.Bytes.Movement, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement2, Patcher.Bytes.Legacy, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement3, Patcher.Bytes.Movement, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement4, Patcher.Bytes.Movement, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x86.Legacy, Patcher.Bytes.Legacy, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x86.Email, Patcher.Bytes.Email, ref StateBox);
+                        Patcher.Patcher.Patch((int)Patcher.Offset.x86.User, Patcher.Bytes.User, ref StateBox);
+                        MessageBox.Show("Patched 32bit client, shutting down application");
+                    }
 
-        private void Image_MouseLeftButtonUp_5(object sender, MouseButtonEventArgs e)
-        {
-            if (Patcher.Patcher.Initialized)
-            {
-                NoteText.Content = "Patching in progress...";
-
-                if (Patcher.Patcher.Is64Bit)
-                {
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement, Patcher.Bytes.Movement, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement2, Patcher.Bytes.Movement, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement3, Patcher.Bytes.Movement, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x64.Movement4, Patcher.Bytes.Movement, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x64.Legacy, Patcher.Bytes.Legacy, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x64.Email, Patcher.Bytes.Email, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x64.User, Patcher.Bytes.User, ref StateBox);
-                }
-                else
-                {
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement, Patcher.Bytes.Movement, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement2, Patcher.Bytes.Legacy, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement3, Patcher.Bytes.Movement, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x86.Movement4, Patcher.Bytes.Movement, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x86.Legacy, Patcher.Bytes.Legacy, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x86.Email, Patcher.Bytes.Email, ref StateBox);
-                    Patcher.Patcher.Patch((int)Patcher.Offset.x86.User, Patcher.Bytes.User, ref StateBox);
-                }
-
-                Patcher.Patcher.Dispose();
-            }
-
-            NoteText.Content = "Patching done!";
+                    Patcher.Patcher.Dispose();
+                    Application.Current.Shutdown();
+             }
         }
     }
 }
